@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.staysunny.R
-import com.example.staysunny.databinding.FragmentSecondBinding
+import com.example.staysunny.databinding.FragmentLoginBinding
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,18 +25,22 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        setupView()
         return binding.root
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+   private fun setupView() {
+       binding.tvAccount.setOnClickListener {
+           findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+       }
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
-    }
+       binding.tvForgot.setOnClickListener {
+           findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+       }
+
+   }
 
     override fun onDestroyView() {
         super.onDestroyView()
