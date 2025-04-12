@@ -10,7 +10,7 @@
 
     <!-- Button Continue -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/filledButton"
+        android:id="@+id/fbContinue"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
@@ -24,15 +24,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/capibara"
+        android:id="@+id/ivCapibara"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/filledButton"
+        app:layout_constraintBottom_toTopOf="@+id/fbContinue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/capibara"
+        android:src="@drawable/capibara"
         android:contentDescription="@string/permission"/>
 
 

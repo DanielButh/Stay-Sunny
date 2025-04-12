@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.staysunny.R
-import com.example.staysunny.databinding.FragmentFirstBinding
+import com.example.staysunny.databinding.FragmentPersonalInformationVariantBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class PersonalInformationVariantFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentPersonalInformationVariantBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,16 +25,15 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentPersonalInformationVariantBinding.inflate(inflater, container, false)
+        setupView()
         return binding.root
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    private fun setupView() {
+        binding.btContinue.setOnClickListener {
+            findNavController().navigate(R.id.action_personalInformationVariant_to_permission)
         }
     }
 

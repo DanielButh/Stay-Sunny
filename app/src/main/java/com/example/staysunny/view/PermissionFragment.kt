@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.staysunny.R
-import com.example.staysunny.databinding.FragmentResetPasswordBinding
+import com.example.staysunny.databinding.FragmentPermissionBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ResetPasswordFragment : Fragment() {
+class PermissionFragment : Fragment() {
 
-    private var _binding: FragmentResetPasswordBinding? = null
+    private var _binding: FragmentPermissionBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,16 +25,13 @@ class ResetPasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
+        _binding = FragmentPermissionBinding.inflate(inflater, container, false)
         setupView()
         return binding.root
 
     }
 
     private fun setupView() {
-        binding.btBack.setOnClickListener {
-            findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
-        }
 
     }
 
