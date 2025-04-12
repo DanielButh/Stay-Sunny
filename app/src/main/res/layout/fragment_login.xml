@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/FirstFragment"
@@ -9,21 +10,21 @@
     tools:context=".view.MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivCapibara"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="104dp"
         android:importantForAccessibility="no"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="127dp"
-        tools:src="@drawable/capiva"
+        tools:src="@drawable/capibara"
         tools:ignore="MissingConstraints">
 
     </ImageView>
 
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/textField"
+        android:id="@+id/tfEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -36,6 +37,7 @@
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -43,7 +45,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
 
-        android:id="@+id/textField2"
+        android:id="@+id/tfPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -53,9 +55,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField">
+        app:layout_constraintTop_toBottomOf="@+id/tfEmail">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -63,28 +66,39 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btLogin"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/register_user"
+        android:text="@string/login_user"
         app:backgroundTint="@color/brown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField2" />
+        app:layout_constraintTop_toBottomOf="@+id/tfPassword" />
 
-    <Button
-        android:id="@+id/iconButton"
-        style="?attr/materialIconButtonStyle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+    <TextView
+        android:id="@+id/tvForgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/brown"
-        app:icon="@drawable/Back"
+        android:layout_marginTop="4dp"
+        android:text="@string/reset_password"
+        android:textColor="#2196F3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btLogin"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/create_account"
+        android:textColor="#2196F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
