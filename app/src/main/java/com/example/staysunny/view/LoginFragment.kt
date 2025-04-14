@@ -28,7 +28,6 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         setupView()
         return binding.root
-
     }
 
    private fun setupView() {
