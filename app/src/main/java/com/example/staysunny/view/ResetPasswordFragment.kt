@@ -1,74 +1,84 @@
 package com.example.staysunny.view
 
 import android.os.Bundle
-import android.util.Patterns
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.staysunny.R
 import com.example.staysunny.databinding.FragmentResetPasswordBinding
-
+import com.example.staysunny.viewModel.ResetPasswordViewModel
+import com.example.staysunny.utils.FragmentCommunicator
 
 class ResetPasswordFragment : Fragment() {
 
     private var _binding: FragmentResetPasswordBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: ResetPasswordViewModel by viewModels()
+    private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as FragmentCommunicator
         setupView()
+        setupObservers()
         return binding.root
-
     }
 
     private fun setupView() {
-        binding.btBack.setOnClickListener {
-            findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
-        }
-
         binding.btnReset.setOnClickListener {
             val email = binding.tietEmail.text.toString().trim()
 
-            // Limpiar errores previos
-            binding.textField.error = null
-
-            // Validar campo vacío
             if (email.isEmpty()) {
-                binding.textField.error = "Fill in the field with the correct format"
+                Toast.makeText(requireContext(), "The email field cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Validar formato de correo
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.textField.error = "Please enter a valid email"
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(requireContext(), "Invalid mail format", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Limpiar errores si todo está bien
-            binding.textField.error = null
+            viewModel.sendPasswordResetEmail(email)
+        }
 
-            // Mostrar loader
-            binding.loaderView.visibility = View.VISIBLE
-            binding.loaderView.playAnimation()
-
-            // Simular operación asíncrona
-            binding.btnReset.postDelayed({
-                binding.loaderView.cancelAnimation()
-                binding.loaderView.visibility = View.GONE
-                // Mostrar mensaje
-                Toast.makeText(requireContext(), "Recovery email sent", Toast.LENGTH_SHORT).show()
-            }, 2000)
+        binding.btBack.setOnClickListener {
+            findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
         }
     }
+
+    private fun setupObservers() {
+        // Observamos el estado del loader (si está cargando o no)
+        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
+            communicator.showLoader(loaderState)  // Usamos el loader para mostrar u ocultar
+        }
+
+        // Observamos el estado de la respuesta del envío del correo
+        viewModel.passwordResetState.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                // Si el envío fue exitoso, mostramos el mensaje de éxito
+                Toast.makeText(requireContext(), "Mail sent. Check your inbox", Toast.LENGTH_LONG).show()
+
+                // Después de 2 segundos, navega al login
+                Handler(Looper.getMainLooper()).postDelayed({
+                    findNavController().navigate(R.id.action_resetPasswordFragment_to_loginFragment)
+                }, 2000)
+            } else {
+                // Si hubo un error, mostramos el mensaje de error
+                Toast.makeText(requireContext(), "Failed to send the recovery email", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
