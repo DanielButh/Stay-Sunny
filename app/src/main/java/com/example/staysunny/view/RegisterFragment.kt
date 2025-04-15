@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.staysunny.R
 import com.example.staysunny.databinding.FragmentRegisterBinding
+import com.example.staysunny.utils.FragmentCommunicator
+import com.example.staysunny.viewModel.RegisterViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -19,6 +23,9 @@ class RegisterFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel by viewModels<RegisterViewModel>()
+    var isValid: Boolean = false
+    private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +33,9 @@ class RegisterFragment : Fragment() {
     ): View {
 
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as OnboardingActivity
         setupView()
+        setupObservers()
         return binding.root
 
     }
@@ -37,9 +46,36 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_personalInformationVariant)
+            requestRegister()
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
+            communicator.showLoader(loaderState)
+        }
+        viewModel.createdUser.observe(viewLifecycleOwner) { createdUser ->
+            if (createdUser) {
+                findNavController().navigate(R.id.action_registerFragment_to_personalInformationVariant)
+            }
+        }
+    }
+
+    private fun requestRegister() {
+        if (binding.tietEmail.text.toString().isNotEmpty()
+            && binding.tietPassword.text.toString().isNotEmpty()) {
+            isValid = true
+        } else {
+            isValid = false
         }
 
+        if (isValid) {
+            viewModel.requestRegister(binding.tietEmail.text.toString(),
+                binding.tietPassword.text.toString()
+            )
+        } else {
+            Toast.makeText(activity, "Please introduce your information", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {
