@@ -24,6 +24,7 @@ class RegisterFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel by viewModels<RegisterViewModel>()
+    var isValid: Boolean = false
     private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
@@ -45,8 +46,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btRegister.setOnClickListener {
-            viewModel.requestRegister(binding.tietEmail.text.toString(),
-                binding.tietPassword.text.toString())
+            requestRegister()
         }
     }
 
@@ -58,6 +58,23 @@ class RegisterFragment : Fragment() {
             if (createdUser) {
                 findNavController().navigate(R.id.action_registerFragment_to_personalInformationVariant)
             }
+        }
+    }
+
+    private fun requestRegister() {
+        if (binding.tietEmail.text.toString().isNotEmpty()
+            && binding.tietPassword.text.toString().isNotEmpty()) {
+            isValid = true
+        } else {
+            isValid = false
+        }
+
+        if (isValid) {
+            viewModel.requestRegister(binding.tietEmail.text.toString(),
+                binding.tietPassword.text.toString()
+            )
+        } else {
+            Toast.makeText(activity, "Please introduce your information", Toast.LENGTH_SHORT).show()
         }
     }
 
