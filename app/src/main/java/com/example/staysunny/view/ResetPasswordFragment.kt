@@ -43,13 +43,13 @@ class ResetPasswordFragment : Fragment() {
 
             // Validar campo vacío
             if (email.isEmpty()) {
-                binding.textField.error = "Se requiere que llene el campo"
+                binding.textField.error = "Fill in the field with the correct format"
                 return@setOnClickListener
             }
 
             // Validar formato de correo
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.textField.error = "Ingrese un correo electrónico válido"
+                binding.textField.error = "Please enter a valid email"
                 return@setOnClickListener
             }
 
@@ -65,7 +65,7 @@ class ResetPasswordFragment : Fragment() {
                 binding.loaderView.cancelAnimation()
                 binding.loaderView.visibility = View.GONE
                 // Mostrar mensaje
-                Toast.makeText(requireContext(), "Correo de recuperación enviado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Recovery email sent", Toast.LENGTH_SHORT).show()
             }, 2000)
         }
     }
