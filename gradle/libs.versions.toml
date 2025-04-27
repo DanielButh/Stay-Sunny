@@ -14,6 +14,8 @@ navigationUiKtx = "2.8.9"
 lottie = "4.2.2"
 google-services = "4.4.2"
 firebase = "33.12.0"
+retrofitVersion = "2.9.0"
+gson = "2.10.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,9 +32,14 @@ lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie"
 firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase"}
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion"}
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-services-plugin = { id = "com.google.gms.google-services", version.ref = "google-services" }
+
 
