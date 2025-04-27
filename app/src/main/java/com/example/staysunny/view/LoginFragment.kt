@@ -91,7 +91,8 @@ class LoginFragment : Fragment() {
     }
 
     if (isValid){
-        viewModel.requestLogin(binding.tietEmail.text.toString(),
+        viewModel.requestLogin(
+            binding.tietEmail.text.toString(),
             binding.tietPassword.text.toString()
         )
     } else {

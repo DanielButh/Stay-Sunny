@@ -91,7 +91,7 @@ class PersonalInformationVariantFragment : Fragment() {
         }
 
         viewModel.mensaje.observe(viewLifecycleOwner) { validSession ->
-            if (validSession == true) {
+            if (validSession) {
                 Toast.makeText(activity, "Valid access!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_personalInformationVariant_to_permission)
             } else {
