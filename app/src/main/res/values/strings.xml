@@ -21,4 +21,15 @@
     <string name="button_reset">Reset password</string>
     <string name="description_reset">Enter the email address associated with your account</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_button_description">Button to open setting</string>
+    <string name="city">Karachi</string>
+    <string name="date">Monday 7:00 AM</string>
+    <string name="celsius">22 °C</string>
+    <string name="greeting">Good morning \n       Wasim</string>
+    <string name="wind">Wind</string>
+    <string name="windInfo">4m/s</string>
+    <string name="hour">7:00</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="tempratureInfo">23°</string>
+    <string name="temprature">Temprature</string>
 </resources>
