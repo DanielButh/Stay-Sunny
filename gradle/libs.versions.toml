@@ -16,6 +16,7 @@ google-services = "4.4.2"
 firebase = "33.13.0"
 retrofitVersion = "2.9.0"
 gson = "2.10.1"
+glideVersion = "4.15.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,7 +36,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
 retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion"}
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
-
+glide = { group = "com.github.bumtech.glide", name ="glide", version.ref= "glideVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
