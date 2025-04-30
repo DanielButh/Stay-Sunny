@@ -45,5 +45,9 @@
     <fragment
         android:id="@+id/permission"
         android:name="com.example.staysunny.view.PermissionFragment"
-        android:label="Permission" />
+        android:label="Permission" >
+        <action
+            android:id="@+id/action_permission_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
