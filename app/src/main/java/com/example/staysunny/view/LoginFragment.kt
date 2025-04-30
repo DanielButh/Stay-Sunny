@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.staysunny.R
 import com.example.staysunny.databinding.FragmentLoginBinding
 import com.example.staysunny.utils.FragmentCommunicator
+import com.example.staysunny.view.HomeActivity
 import com.example.staysunny.viewModel.LoginViewModel
 
 
@@ -73,7 +74,7 @@ class LoginFragment : Fragment() {
         }
         viewModel.sessionValid.observe(viewLifecycleOwner) {sessionValid ->
             if (sessionValid) {
-                val intent = Intent(activity, MainActivity::class.java)
+                val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
             } else {

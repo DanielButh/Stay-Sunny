@@ -1,16 +1,21 @@
 package com.example.staysunny.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.staysunny.R
+import com.example.staysunny.model.Weather
+import com.example.staysunny.utils.FragmentCommunicator
+import com.example.staysunny.databinding.FragmentWeatherBinding
+import com.example.staysunny.view.HomeActivity
+import com.example.staysunny.view.OnboardingActivity
+import com.example.staysunny.viewModel.WeatherViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -18,43 +23,64 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class WeatherFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentWeatherBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+    private val viewModel by viewModels<WeatherViewModel>()
+    private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_weather, container, false)
+    ): View {
+
+        _binding = FragmentWeatherBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as HomeActivity
+        setupView()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WeatherFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WeatherFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun setupView() {
+        setupObservers()
+        val coordinates = getUserCoordinates()
+        viewModel.getWeatherDetail(coordinates)
+    }
+
+    fun setupObservers() {
+        viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
+            showWeatherInfo(weather)
+        }
+
+        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
+            communicator.showLoader(loaderState)
+        }
+    }
+
+    fun showWeatherInfo(weather: Weather) {
+        binding.tvCity.text = weather.location.name
+        binding.tvDate.text = if (weather.current.isDay ==1) weather.location.localtime.split(" ")[1] + " a.m" else weather.location.localtime.split(" ")[1] + " p.m"
+        binding.tvCelsius.text = weather.current.tempC.toString() + " °C"
+        binding.tvGreeting.text = if (weather.current.isDay == 1) "Good morning" else "Good night"
+        binding.tvSunriseInfo.text = if (weather.current.isDay ==1) weather.location.localtime.split(" ")[1] + " a.m" else weather.location.localtime.split(" ")[1] + " p.m"
+        binding.tvWindInfo.text = weather.current.windMph.toString() + " m/s"
+        binding.tvTempratureInfo.text = weather.current.tempC.toString() + " °C"
+
+        Glide.with(this)
+            .load("https:" + weather.current.condition.icon)
+            .placeholder(R.drawable.pending_24px)
+            .error(R.drawable.sentiment_sad_24px)
+            .into(binding.ivWeather)
+    }
+
+    fun getUserCoordinates(): String {
+        return "19.32871829633027, -99.16549389549148"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

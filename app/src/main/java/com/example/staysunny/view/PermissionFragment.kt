@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.staysunny.databinding.FragmentPermissionBinding
-import com.example.staysunny.viewModel.PermissionViewModel
 import com.example.staysunny.utils.FragmentCommunicator
 
 class PermissionFragment : Fragment() {
