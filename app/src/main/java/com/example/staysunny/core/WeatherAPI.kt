@@ -15,4 +15,13 @@ interface WeatherAPI {
     ): Response<Weather>   //Respuesta del JSON.
 
 
+    @GET("v1/forecast.json") // se cambio v1/current.json
+
+    suspend fun getWeatherForecast(
+        @Query("key") apiKey: String,  // La clave de API.
+        @Query("q") coordinates: String,  // Ciudad o coordenadas.
+        @Query("days") days: Int = 7  //Solicitar el pronóstico de 7 días.
+
+    ): Response<Weather> //Respuesta del JSON.
 }
+

@@ -72,15 +72,14 @@ class LoginFragment : Fragment() {
         viewModel.loaderState.observe(viewLifecycleOwner) {loaderState ->
             communicator.showLoader(loaderState)
         }
-        viewModel.sessionValid.observe(viewLifecycleOwner) {sessionValid ->
+        viewModel.sessionValid.observe(viewLifecycleOwner) { sessionValid ->
             if (sessionValid) {
-                val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+                findNavController().navigate(R.id.action_loginFragment_to_weatherWeekFragment) // Cambiar a fragmento correcto
             } else {
-                Toast.makeText(activity, "invalid access", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Invalid access", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     private fun requestLogin() {
