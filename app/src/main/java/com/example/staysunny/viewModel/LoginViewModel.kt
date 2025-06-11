@@ -9,8 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel:ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+private val repository: UserRepository
+):ViewModel(){
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
         get() = _loaderState

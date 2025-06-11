@@ -14,7 +14,9 @@ import androidx.core.widget.addTextChangedListener
 import com.example.staysunny.databinding.FragmentPersonalInformationVariantBinding
 import com.example.staysunny.utils.FragmentCommunicator
 import com.example.staysunny.viewModel.PersonalInformationVariantViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PersonalInformationVariantFragment : Fragment() {
 
     private var _binding: FragmentPersonalInformationVariantBinding? = null

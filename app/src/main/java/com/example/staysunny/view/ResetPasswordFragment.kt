@@ -14,7 +14,9 @@ import com.example.staysunny.R
 import com.example.staysunny.databinding.FragmentResetPasswordBinding
 import com.example.staysunny.viewModel.ResetPasswordViewModel
 import com.example.staysunny.utils.FragmentCommunicator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ResetPasswordFragment : Fragment() {
 
     private var _binding: FragmentResetPasswordBinding? = null

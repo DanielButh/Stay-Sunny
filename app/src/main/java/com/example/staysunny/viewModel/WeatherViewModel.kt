@@ -8,10 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.staysunny.model.Weather
 import com.example.staysunny.network.WeatherRepository
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class WeatherViewModel: ViewModel() {
-
-    private val repository = WeatherRepository()
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
+private val repository: WeatherRepository
+): ViewModel() {
 
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>

@@ -3,8 +3,13 @@ package com.example.staysunny.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PersonalInformationVariantViewModel : ViewModel() {
+@HiltViewModel
+class PersonalInformationVariantViewModel  @Inject constructor(
+    private val repository: UserRepository
+): ViewModel() {
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
         get() = _loaderState

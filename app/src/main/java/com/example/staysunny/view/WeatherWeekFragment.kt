@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.staysunny.adapter.WeatherWeekAdapter
 import com.example.staysunny.databinding.FragmentWeatherWeekBinding
 import android.util.Log
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WeatherWeekFragment : Fragment() {
 
     private var _binding: FragmentWeatherWeekBinding? = null

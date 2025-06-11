@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.services.plugin)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -62,5 +64,7 @@ dependencies {
     implementation(libs.retrofit.converter)
     //Glide
     implementation(libs.glide)
-    // Lifecycle - ViewModel y LiveData
+    // Dagger hilt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }

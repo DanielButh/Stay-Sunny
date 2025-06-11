@@ -4,12 +4,14 @@ import android.util.Log
 import com.example.staysunny.core.RetrofitInstance
 import com.example.staysunny.core.WeatherAPI
 import com.example.staysunny.model.Weather
+import jakarta.inject.Inject
 
-class WeatherRepository {
-    private val retrofit = RetrofitInstance.getRetrofit().create(WeatherAPI::class.java)
+class WeatherRepository @Inject constructor(
+private val weatherAPI: WeatherAPI
+) {
 
     suspend fun getWeatherDetail(coordinates: String): Weather? {
-        val response = retrofit.getWeatherForecast("dc798fb4f525444bbad62116251904", coordinates)
+        val response = weatherAPI.getWeatherForecast("dc798fb4f525444bbad62116251904", coordinates)
 
 
         if (!response.isSuccessful) {

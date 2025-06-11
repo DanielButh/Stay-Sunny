@@ -15,13 +15,10 @@ import com.example.staysunny.databinding.FragmentWeatherBinding
 import com.example.staysunny.view.HomeActivity
 import com.example.staysunny.view.OnboardingActivity
 import com.example.staysunny.viewModel.WeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [WeatherFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
     private var _binding: FragmentWeatherBinding? = null

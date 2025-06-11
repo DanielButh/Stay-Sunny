@@ -12,7 +12,9 @@ import com.example.staysunny.R
 import androidx.navigation.fragment.findNavController
 import com.example.staysunny.databinding.FragmentPermissionBinding
 import com.example.staysunny.viewModel.PermissionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PermissionFragment : Fragment() {
 
     private var _binding: FragmentPermissionBinding? = null
