@@ -15,11 +15,9 @@ import com.example.staysunny.databinding.FragmentLoginBinding
 import com.example.staysunny.utils.FragmentCommunicator
 import com.example.staysunny.view.HomeActivity
 import com.example.staysunny.viewModel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null

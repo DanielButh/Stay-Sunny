@@ -8,10 +8,12 @@ import com.example.staysunny.network.WeatherRepository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class WeatherWeekViewModel : ViewModel() {
-
-    private val repository = WeatherRepository()
+class WeatherWeekViewModel @Inject constructor(
+    private val repository: WeatherRepository
+): ViewModel() {
 
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>

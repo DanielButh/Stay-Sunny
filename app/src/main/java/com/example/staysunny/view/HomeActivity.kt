@@ -11,7 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.staysunny.R
 import com.example.staysunny.databinding.ActivityHomeBinding
 import com.example.staysunny.utils.FragmentCommunicator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), FragmentCommunicator {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
