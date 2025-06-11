@@ -62,4 +62,5 @@ dependencies {
     implementation(libs.retrofit.converter)
     //Glide
     implementation(libs.glide)
+    // Lifecycle - ViewModel y LiveData
 }
