@@ -120,10 +120,10 @@ class WeatherFragment : Fragment() {
 
     fun showWeatherInfo(weather: Weather) {
         binding.tvCity.text = weather.location.name
-        binding.tvDate.text = if (weather.current.isDay ==1) weather.location.localtime.split(" ")[1] + " a.m" else weather.location.localtime.split(" ")[1] + " p.m"
+        binding.tvDate.text = weather.location.localtime.split(" ")[1]
         binding.tvCelsius.text = weather.current.tempC.toString() + " °C"
         binding.tvGreeting.text = if (weather.current.isDay == 1) "Good morning" else "Good night"
-        binding.tvSunriseInfo.text = if (weather.current.isDay ==1) weather.location.localtime.split(" ")[1] + " a.m" else weather.location.localtime.split(" ")[1] + " p.m"
+        binding.tvSunriseInfo.text = weather.location.localtime.split(" ")[1] + " hrs"
         binding.tvWindInfo.text = weather.current.windMph.toString() + " m/s"
         binding.tvTempratureInfo.text = weather.current.tempC.toString() + " °C"
 
