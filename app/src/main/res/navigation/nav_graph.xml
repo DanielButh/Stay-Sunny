@@ -15,15 +15,8 @@
         <action
             android:id="@+id/action_loginFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_weatherWeekFragment"
-            app:destination="@id/weatherWeekFragment"/> <!-- Redirección corregida -->
+        <!-- Redirección corregida -->
     </fragment>
-
-    <fragment
-        android:id="@+id/weatherWeekFragment"
-        android:name="com.example.staysunny.view.WeatherWeekFragment"
-        android:label="WeatherWeekFragment" />
 
     <fragment
         android:id="@+id/registerFragment"
