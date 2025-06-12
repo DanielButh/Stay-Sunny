@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import android.Manifest
 import android.content.pm.PackageManager
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.staysunny.R
@@ -31,8 +32,6 @@ class WeatherFragment : Fragment() {
 
     private var _binding: FragmentWeatherBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel by viewModels<WeatherViewModel>()
     private lateinit var communicator: FragmentCommunicator
@@ -43,7 +42,16 @@ class WeatherFragment : Fragment() {
         val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
 
         if (fineLocationGranted || coarseLocationGranted) {
-            getUserLocation()
+            getUserLocation(locationCoordinatesCallback)
+        }
+    }
+    private val locationCoordinatesCallback: (String?) -> Unit = { coordinates ->
+        if (coordinates != null) {
+            Log.d("WeatherFragment", "Coordenadas obtenidas: $coordinates")
+            viewModel.getWeatherDetail(coordinates)
+        } else {
+            Log.e("WeatherFragment", "No se pudieron obtener las coordenadas.")
+            Toast.makeText(requireContext(), "No se pudo obtener la ubicación para el clima.", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -60,28 +68,43 @@ class WeatherFragment : Fragment() {
     }
 
     fun setupView() {
-        requestPermissionLauncher.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Log.d("WeatherFragment", "Permiso ya concedido en setupView.")
+            getUserLocation(locationCoordinatesCallback)
+        } else {
+            Log.d("WeatherFragment", "Solicitando permiso de ubicación desde setupView.")
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
             )
-        )
-
-        val coordinates = getUserCoordinates()
-        viewModel.getWeatherDetail(coordinates)
+        }
     }
 
-    fun getUserLocation() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+    fun getUserLocation(onResult: (String?) -> Unit) {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             lifecycleScope.launch {
-                val location = LocationProvider.getInstance(requireContext()).getCurrentLocation()
-                location?.let {
-                    Log.i("LOCATION", "Location: ${it.latitude}, ${it.longitude}")
-                    val coordinates = it.latitude.toString() + it.longitude.toString()
-                } ?: run {
-                    Log.e("LOCATION", "ALGO SALIO MAL CON LA UBICACION")
+                try {
+                    val location = LocationProvider.getInstance(requireContext()).getCurrentLocation()
+                    location?.let {
+                        val coordinatesString = "${it.latitude},${it.longitude}"
+                        Log.i("LOCATION", "Location: $coordinatesString")
+                        onResult(coordinatesString)
+                    } ?: run {
+                        Log.e("LOCATION", "La ubicación obtenida es nula.")
+                        onResult(null)
+                    }
+                } catch (e: Exception) {
+                    Log.e("LOCATION", "Excepción al obtener la ubicación: ${e.message}", e)
+                    onResult(null)
                 }
             }
+        } else {
+            Log.w("LOCATION_HELPER", "Permiso de ubicación no concedido al intentar obtener ubicación.")
+            onResult(null)
         }
     }
 
