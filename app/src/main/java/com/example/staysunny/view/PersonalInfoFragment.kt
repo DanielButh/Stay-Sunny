@@ -40,7 +40,7 @@ class PersonalInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         // Inflate the layout for this
         _binding = FragmentPersonalInfoBinding.inflate(inflater,container, false)
-        communicator = requireActivity() as OnboardingActivity
+        communicator = requireActivity() as HomeActivity
         setupView()
         return binding.root
     }

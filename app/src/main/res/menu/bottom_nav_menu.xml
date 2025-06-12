@@ -9,4 +9,9 @@
         android:id="@+id/navigation_forecast"
         android:icon="@drawable/week"
         android:title="@string/week_weather"/>
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/account_circle_40px"
+        android:title="@string/account"/>
 </menu>
