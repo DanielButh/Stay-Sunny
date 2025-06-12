@@ -33,4 +33,6 @@
     <string name="tempratureInfo">23°</string>
     <string name="temprature">Temprature</string>
     <string name="description_back">Go back</string>
+    <string name="weather">Weather</string>
+    <string name="week_weather">Week weather</string>
 </resources>

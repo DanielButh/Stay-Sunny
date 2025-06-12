@@ -3,10 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph2"
-    app:startDestination="@id/weatherFragment">
+    app:startDestination="@id/navigation_weather">
     <fragment
-        android:id="@+id/weatherFragment"
+        android:id="@+id/navigation_weather"
         android:name="com.example.staysunny.view.WeatherFragment"
-        android:label="WeatherFragment"
+        android:label="@string/weather"
         tools:layout="@layout/fragment_weather"/>
+    <fragment
+        android:id="@+id/navigation_forecast"
+        android:name="com.example.staysunny.view.WeatherWeekFragment"
+        android:label="@string/week_weather"
+        tools:layout="@layout/fragment_weather_week"/>
 </navigation>

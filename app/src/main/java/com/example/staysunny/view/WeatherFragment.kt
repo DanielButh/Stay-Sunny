@@ -6,9 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import android.Manifest
+import android.content.pm.PackageManager
+import android.util.Log
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.staysunny.R
+import com.example.staysunny.core.LocationProvider
 import com.example.staysunny.model.Weather
 import com.example.staysunny.utils.FragmentCommunicator
 import com.example.staysunny.databinding.FragmentWeatherBinding
@@ -16,6 +23,7 @@ import com.example.staysunny.view.HomeActivity
 import com.example.staysunny.view.OnboardingActivity
 import com.example.staysunny.viewModel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -28,6 +36,16 @@ class WeatherFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<WeatherViewModel>()
     private lateinit var communicator: FragmentCommunicator
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true
+        val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+
+        if (fineLocationGranted || coarseLocationGranted) {
+            getUserLocation()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +55,34 @@ class WeatherFragment : Fragment() {
         _binding = FragmentWeatherBinding.inflate(inflater, container, false)
         communicator = requireActivity() as HomeActivity
         setupView()
+        setupObservers()
         return binding.root
     }
 
     fun setupView() {
-        setupObservers()
+        requestPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+
         val coordinates = getUserCoordinates()
         viewModel.getWeatherDetail(coordinates)
+    }
+
+    fun getUserLocation() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            lifecycleScope.launch {
+                val location = LocationProvider.getInstance(requireContext()).getCurrentLocation()
+                location?.let {
+                    Log.i("LOCATION", "Location: ${it.latitude}, ${it.longitude}")
+                    val coordinates = it.latitude.toString() + it.longitude.toString()
+                } ?: run {
+                    Log.e("LOCATION", "ALGO SALIO MAL CON LA UBICACION")
+                }
+            }
+        }
     }
 
     fun setupObservers() {
