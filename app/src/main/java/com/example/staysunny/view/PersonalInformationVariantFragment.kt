@@ -56,8 +56,8 @@ class PersonalInformationVariantFragment : Fragment() {
             if (userId != null) {
                 viewModel.createUserInfo(userId,
                     binding.tietName.text.toString(),
-                    binding.tietUsername.text.toString(),
                     binding.tietLastNames.text.toString(),
+                    binding.tietUsername.text.toString(),
                     format.parse(binding.tietBirthDate.text.toString()) ?: Date()
                 )
             } else {
