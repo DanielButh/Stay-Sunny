@@ -14,4 +14,22 @@
         android:name="com.example.staysunny.view.WeatherWeekFragment"
         android:label="@string/week_weather"
         tools:layout="@layout/fragment_weather_week"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.staysunny.view.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalInfoFragment"
+        android:name="com.example.staysunny.view.PersonalInfoFragment"
+        android:label="PersonalInfoFragment"
+        tools:layout="@layout/fragment_personal_info">
+        <action
+            android:id="@+id/action_personalInfoFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>
