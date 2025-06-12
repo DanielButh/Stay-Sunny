@@ -19,6 +19,8 @@ gson = "2.10.1"
 glideVersion = "4.15.1"
 hilt = "2.56.2"
 hilt-plugin = "2.48"
+location = "21.0.1"
+coroutines = "1.6.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +43,8 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 glide = { group = "com.github.bumptech.glide", name ="glide", version.ref= "glideVersion"}
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
+location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
+coroutines-play = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

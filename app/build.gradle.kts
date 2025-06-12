@@ -67,4 +67,7 @@ dependencies {
     // Dagger hilt
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    // Location
+    implementation(libs.location)
+    implementation(libs.coroutines.play)
 }
