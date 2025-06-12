@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.staysunny.core.RetrofitInstance
 import com.example.staysunny.core.WeatherAPI
 import com.example.staysunny.model.Weather
-import jakarta.inject.Inject
+import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
 private val weatherAPI: WeatherAPI
