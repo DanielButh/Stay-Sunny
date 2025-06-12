@@ -35,7 +35,6 @@ class RegisterFragment : Fragment() {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         communicator = requireActivity() as OnboardingActivity
         setupView()
-        setupObservers()
         return binding.root
 
     }
@@ -46,35 +45,19 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btRegister.setOnClickListener {
-            requestRegister()
+            viewModel.requestRegister(binding.tietEmail.text.toString(),
+                binding.tietPassword.text.toString())
         }
+        setupObservers()
     }
 
     private fun setupObservers() {
         viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
             communicator.showLoader(loaderState)
         }
-        viewModel.createdUser.observe(viewLifecycleOwner) { createdUser ->
-            if (createdUser) {
-                findNavController().navigate(R.id.action_registerFragment_to_personalInformationVariant)
-            }
-        }
-    }
-
-    private fun requestRegister() {
-        if (binding.tietEmail.text.toString().isNotEmpty()
-            && binding.tietPassword.text.toString().isNotEmpty()) {
-            isValid = true
-        } else {
-            isValid = false
-        }
-
-        if (isValid) {
-            viewModel.requestRegister(binding.tietEmail.text.toString(),
-                binding.tietPassword.text.toString()
-            )
-        } else {
-            Toast.makeText(activity, "Please introduce your information", Toast.LENGTH_SHORT).show()
+        viewModel.createdUser.observe(viewLifecycleOwner) { userId ->
+            val action = RegisterFragmentDirections.actionRegisterFragmentToPersonalInformationVariant(userId)
+            findNavController().navigate(action)
         }
     }
 

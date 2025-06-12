@@ -67,35 +67,23 @@ class LoginFragment : Fragment() {
    }
 
     private fun setupObservers(){
-        viewModel.loaderState.observe(viewLifecycleOwner) {loaderState ->
+        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
             communicator.showLoader(loaderState)
         }
-        viewModel.sessionValid.observe(viewLifecycleOwner) { sessionValid ->
-            if (sessionValid) {
-                findNavController().navigate(R.id.action_loginFragment_to_weatherWeekFragment) // Cambiar a fragmento correcto
+        viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
+            if (validSession) {
+                val intent = Intent(activity, HomeActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
             } else {
                 Toast.makeText(activity, "Invalid access", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun requestLogin() {
-    if (binding.tietEmail.text.toString().isNotEmpty()
-        && binding.tietPassword.text.toString().isNotEmpty()){
-        isValid = true
-    } else {
-        isValid = false
-    }
-
-    if (isValid){
-        viewModel.requestLogin(
-            binding.tietEmail.text.toString(),
-            binding.tietPassword.text.toString()
-        )
-    } else {
-        Toast.makeText(activity, "please introduce your information", Toast.LENGTH_SHORT).show()
-        }
+        viewModel.requestLogin(binding.tietEmail.text.toString(),
+            binding.tietPassword.text.toString())
     }
 
     override fun onDestroyView() {

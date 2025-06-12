@@ -50,6 +50,11 @@
         android:id="@+id/personalInformationVariant"
         android:name="com.example.staysunny.view.PersonalInformationVariantFragment"
         android:label="PersonalInformationVariant" >
+
+        <argument
+            android:name="userId"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_personalInformationVariant_to_permission"
             app:destination="@id/permission" />

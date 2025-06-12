@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.staysunny.core.ResultWrapper
+import com.example.staysunny.network.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -19,26 +21,24 @@ private val repository: UserRepository
     val loaderState: LiveData<Boolean>
         get() = _loaderState
 
-    private val _createdUser = MutableLiveData<Boolean>()
-    val createdUser: LiveData<Boolean>
+    private val _createdUser = MutableLiveData<String>()
+    val createdUser: LiveData<String>
         get() = _createdUser
 
-    private val firebase = FirebaseAuth.getInstance()
 
     fun requestRegister(email: String, password: String) {
-        _loaderState.value = true
-        _createdUser.value = false
-
-        viewModelScope.launch {
-            val result = firebase.createUserWithEmailAndPassword(email, password).await()
-            _loaderState.value = false
-
-            result.user?.let {
-                Log.i("Firebase", "Se puedo crear el usuario")
-                _createdUser.value = true
-            } ?: run {
-                Log.e("Firebase", "Ocurrió un problema")
+            _loaderState.value = true
+            viewModelScope.launch {
+                when (val result = repository.requestRegister(email, password)) {
+                    is ResultWrapper.Success -> {
+                        _loaderState.value = false
+                        _createdUser.value = result.data.uid
+                    }
+                    is ResultWrapper.Error -> {
+                        _loaderState.value = false
+                        Log.e("Firebase", "Ocurrio un problema")
+                    }
+                }
             }
         }
-    }
 }
