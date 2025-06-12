@@ -17,6 +17,7 @@ firebase = "33.13.0"
 retrofitVersion = "2.9.0"
 gson = "2.10.1"
 glideVersion = "4.15.1"
+safeargs = "2.9.0"
 hilt = "2.56.2"
 hilt-plugin = "2.48"
 
@@ -46,6 +47,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-services-plugin = { id = "com.google.gms.google-services", version.ref = "google-services" }
+safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
 kapt = { id = "kotlin-kapt" }
 
