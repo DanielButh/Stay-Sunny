@@ -11,7 +11,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.staysunny.R
 import com.example.staysunny.databinding.ActivityOnboardingBinding
 import com.example.staysunny.utils.FragmentCommunicator
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity(), FragmentCommunicator {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

@@ -25,11 +25,12 @@
     <string name="city">Karachi</string>
     <string name="date">Monday 7:00 AM</string>
     <string name="celsius">22 °C</string>
-    <string name="greeting">Good morning \n       Wasim</string>
+    <string name="greeting">Good morning\nWasim</string>
     <string name="wind">Wind</string>
     <string name="windInfo">4m/s</string>
     <string name="hour">7:00</string>
     <string name="sunrise">Sunrise</string>
     <string name="tempratureInfo">23°</string>
     <string name="temprature">Temprature</string>
+    <string name="description_back">Go back</string>
 </resources>

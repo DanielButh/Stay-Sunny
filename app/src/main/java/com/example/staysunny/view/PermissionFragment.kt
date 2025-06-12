@@ -8,15 +8,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.staysunny.R
+import androidx.navigation.fragment.findNavController
 import com.example.staysunny.databinding.FragmentPermissionBinding
-import com.example.staysunny.utils.FragmentCommunicator
+import com.example.staysunny.viewModel.PermissionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PermissionFragment : Fragment() {
 
     private var _binding: FragmentPermissionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PermissionViewModel by viewModels()
-    private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,37 +27,18 @@ class PermissionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPermissionBinding.inflate(inflater, container, false)
+        setupView()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupView()
-        setupObservers()
-    }
 
     private fun setupView() {
         binding.fbContinue.setOnClickListener {
             viewModel.triggerSuccessMessage()
         }
-    }
-
-    private fun setupObservers() {
-        viewModel.mensaje.observe(viewLifecycleOwner) { success ->
-            if (success) {
-                showSuccessMessage()
-                viewModel.resetSuccessMessage()
-            }
+        binding.fbContinue.setOnClickListener {
+            findNavController().navigate(R.id.action_permission_to_loginFragment)
         }
-    }
-
-    private fun showSuccessMessage() {
-        Toast.makeText(
-            requireContext(),
-            "Successful access!",
-            Toast.LENGTH_SHORT
-        ).show()
-
     }
 
     override fun onDestroyView() {

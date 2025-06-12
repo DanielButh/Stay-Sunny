@@ -15,11 +15,9 @@ import com.example.staysunny.databinding.FragmentLoginBinding
 import com.example.staysunny.utils.FragmentCommunicator
 import com.example.staysunny.view.HomeActivity
 import com.example.staysunny.viewModel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
@@ -72,15 +70,14 @@ class LoginFragment : Fragment() {
         viewModel.loaderState.observe(viewLifecycleOwner) {loaderState ->
             communicator.showLoader(loaderState)
         }
-        viewModel.sessionValid.observe(viewLifecycleOwner) {sessionValid ->
+        viewModel.sessionValid.observe(viewLifecycleOwner) { sessionValid ->
             if (sessionValid) {
-                val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+                findNavController().navigate(R.id.action_loginFragment_to_weatherWeekFragment) // Cambiar a fragmento correcto
             } else {
-                Toast.makeText(activity, "invalid access", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Invalid access", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     private fun requestLogin() {

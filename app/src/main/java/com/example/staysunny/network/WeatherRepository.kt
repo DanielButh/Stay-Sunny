@@ -4,14 +4,30 @@ import android.util.Log
 import com.example.staysunny.core.RetrofitInstance
 import com.example.staysunny.core.WeatherAPI
 import com.example.staysunny.model.Weather
+import jakarta.inject.Inject
 
-class WeatherRepository {
-    private var retrofit = RetrofitInstance.getRetrofit().create(WeatherAPI::class.java)
+class WeatherRepository @Inject constructor(
+private val weatherAPI: WeatherAPI
+) {
 
     suspend fun getWeatherDetail(coordinates: String): Weather? {
-        val response = retrofit.getWeatherInfo("c5d316da89f8417aae562221251904", coordinates)
-        Log.i("RESPONSE", response.body().toString())
+        val response = weatherAPI.getWeatherForecast("dc798fb4f525444bbad62116251904", coordinates)
 
-        return response.body()
+
+        if (!response.isSuccessful) {
+            Log.e("API_ERROR", "Request failed with code: ${response.code()}")
+            return null
+        }
+
+        val weatherResponse = response.body()
+        if (weatherResponse == null || weatherResponse.forecast == null) {
+            Log.e("API_ERROR", "Response body or forecast is null")
+            return null
+        }
+
+        Log.d("API_DEBUG", "Formato de fecha recibido: ${weatherResponse.forecast.forecastDays.map { it.date }}")
+
+
+        return weatherResponse
     }
 }

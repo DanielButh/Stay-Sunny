@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".core.StaySunny"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,19 +14,24 @@
         android:theme="@style/Theme.StaySunny"
         tools:targetApi="31">
         <activity
+            android:name=".view.HomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.StaySunny" />
+        <activity
             android:name=".view.OnboardingActivity"
             android:exported="true"
-            android:theme="@style/Theme.StaySunny" >
+            android:theme="@style/Theme.StaySunny">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.StaySunny">
+
         </activity>
     </application>
 
