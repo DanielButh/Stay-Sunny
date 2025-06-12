@@ -1,6 +1,5 @@
 package com.example.staysunny.view
 
-import WeatherWeekViewModel
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.staysunny.adapter.WeatherWeekAdapter
 import com.example.staysunny.databinding.FragmentWeatherWeekBinding
 import android.util.Log
+import com.example.staysunny.viewModel.WeatherWeekViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
