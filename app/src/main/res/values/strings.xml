@@ -35,4 +35,5 @@
     <string name="description_back">Go back</string>
     <string name="weather">Weather</string>
     <string name="week_weather">Week weather</string>
+    <string name="account">Account</string>
 </resources>
